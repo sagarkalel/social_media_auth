@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:social_media_auth/services/auth_services.dart';
 import 'package:social_media_auth/utils/extensions.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,8 +16,14 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
+        final authServices = AuthServices();
         await Future.delayed(2.second);
-        Get.offNamed('/loginPage');
+        final isLoggedIn = await authServices.isUserLoggedIn();
+        if (isLoggedIn) {
+          Get.offAllNamed('/homePage');
+        } else {
+          Get.offAllNamed('/loginPage');
+        }
       },
     );
   }

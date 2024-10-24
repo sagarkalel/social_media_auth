@@ -11,6 +11,7 @@ class MyInputField extends StatelessWidget {
     this.suffix,
     this.readOnly = false,
     this.isMasked = false,
+    this.validator,
   });
 
   final String hintText, labelText;
@@ -19,6 +20,7 @@ class MyInputField extends StatelessWidget {
   final bool readOnly;
   final bool isMasked;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,8 @@ class MyInputField extends StatelessWidget {
           onChanged: onChanged,
           style: textFieldTextStyle,
           obscureText: isMasked,
+          validator: validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             suffixIcon: suffix,
